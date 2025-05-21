@@ -11,13 +11,13 @@
    - Cliquez sur "Add" puis "Container Image"
   ![alt text](image-2.png)
   ![alt text](image-3.png)
-   - Utilisez l'image "     oc new-app --name=nginx-cli registry.access.redhat.com/rhscl/nginx-114-rhel7"
+   - Utilisez l'image "registry.access.redhat.com/rhscl/nginx-114-rhel7"
    - Nommez l'application "nginx-web"
    - Choisissez 'Deployment' pour 'Type de ressource'
    - Laissez les autres paramètres par défaut
    - Cliquez sur "Create"
 
-2. Déploiement via la ligne de commande
+1. Déploiement via la ligne de commande
    - Basculez vers votre projet CLI (optionnel) :
      ```bash
      oc project <votre-nom-dev>
@@ -32,7 +32,7 @@
      oc expose service/jenkins-cli
      ```
 
-3. Exploration des ressources créées
+2. Exploration des ressources créées
    - Listez les déploiements :
      ```bash
      oc get deployments
@@ -54,14 +54,14 @@
      oc get routes
      ```
 
-4. Accès à l'application
+3. Accès à l'application
    - Récupérez l'URL de la route :
      ```bash
      oc get route jenkins-cli -o jsonpath='{.spec.host}'
      ```
    - Accédez à l'application dans votre navigateur
 
-5. Supprimer les ressources
+4. Supprimer les ressources
    - Récupérez l'URL de la route :
      ```bash
      oc delete all -l app=jenkins-cli
