@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-with-probes
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-with-probes
+  template:
+    metadata:
+      labels:
+        app: app-with-probes
+    spec:
+      containers:
+      - name: app
+        image: quay.io/redhattraining/hello-world-nginx:v1.0
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 1
+          successThreshold: 1
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 20
+          timeoutSeconds: 1
+          successThreshold: 1
+          failureThreshold: 3
+        startupProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 1
+          successThreshold: 1
+          failureThreshold: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-with-probes
+spec:
+  selector:
+    app: app-with-probes
+  ports:
+  - port: 80
+    targetPort: 8080
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: app-with-probes
+spec:
+  to:
+    kind: Service
+    name: app-with-probes
