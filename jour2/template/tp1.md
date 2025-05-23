@@ -188,7 +188,7 @@
      metadata:
        name: \${FRONTEND_SERVICE_NAME}
      spec:
-       replicas: \${FRONTEND_REPLICAS}
+       replicas: \${{FRONTEND_REPLICAS}}
        selector:
          matchLabels:
            name: \${FRONTEND_SERVICE_NAME}
@@ -299,6 +299,7 @@
      description: Number of backend replicas
      required: true
      value: "2"
+     parse: integer
    - name: BACKEND_MEMORY_LIMIT
      displayName: Backend Memory Limit
      description: Maximum amount of memory the backend container can use
@@ -336,6 +337,7 @@
      description: Number of frontend replicas
      required: true
      value: "2"
+     parse: integer
    - name: FRONTEND_MEMORY_LIMIT
      displayName: Frontend Memory Limit
      description: Maximum amount of memory the frontend container can use
