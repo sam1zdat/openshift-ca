@@ -1,0 +1,7 @@
+#!/bin/bash
+echo "-----> Custom run script"
+export NODE_ENV=production
+
+if [ -x /usr/libexec/s2i/run.original ]; then
+    exec /usr/libexec/s2i/run.original
+fi

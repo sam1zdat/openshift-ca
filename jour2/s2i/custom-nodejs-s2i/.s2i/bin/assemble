@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+echo "-----> Custom assemble script"
+
+if [ -x /usr/libexec/s2i/assemble.original ]; then
+    /usr/libexec/s2i/assemble.original
+fi
+
+echo "-----> Installing dev dependencies"
+npm install --production=false
+
+echo "✅ Assemble complete"

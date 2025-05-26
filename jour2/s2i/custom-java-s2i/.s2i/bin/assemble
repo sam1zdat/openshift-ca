@@ -1,0 +1,16 @@
+#!/bin/bash
+set -e
+
+echo "-----> Custom assemble: compilation Maven"
+
+# Aller dans le dossier où le code source a été copié
+cd /tmp/src
+
+# Compiler le projet
+mvn clean package -DskipTests
+
+# Déplacer le jar dans le dossier attendu
+mkdir -p $HOME/deployments
+cp target/*.jar $HOME/deployments/app.jar
+
+echo "✅ Build Maven terminé avec succès"
